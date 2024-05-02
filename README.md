@@ -9,13 +9,13 @@ _Example is of [Maaack's Game Template](https://github.com/Maaack/Godot-Game-Tem
 ![Credits Screen](/addons/maaacks_credits_scene/media/Screenshot-3-5.png)  
 
 ## Use Case
-For adding scrolling credits to your scenes that can auto-update from a projects `ATTRIBUTION.md`, `CONTRIBUTORS.md`, or similar attribution markdown file.
+For adding scrolling credits to your scenes that can auto-update from a project's `ATTRIBUTION.md`, `CONTRIBUTORS.md`, or similar attribution markdown file.
 
 ## Features
 
 - Classic scrolling text.
 - Interactable:
-  - Supports mouse-wheel scrolling.
+  - Supports mouse-wheel and touch-pad scrolling.
   - Supports clicking on external links.
 - Generates content from reading an attribution file in markdown (`.md`) format.
 - End Credits example scene.
@@ -44,7 +44,6 @@ When editing an existing project:
 8.  Enable the plugin from the Project Settings > Plugins tab.  
     If it's enabled for the first time,
     1.  A dialogue window will appear asking to copy the example scenes out of `addons/`.
-    2.  Another dialogue window will ask to update the project's main scene.
 9.  Continue with the [Existing Project Instructions](/addons/maaacks_credits_scene/docs/ExistingProject.md)  
 
 
@@ -56,6 +55,8 @@ When editing an existing project:
 3.  Move the `addons/maaacks_credits_scene` folder into your project's `addons/` folder.  
 4.  Open/Reload the project.  
 5.  Enable the plugin from the Project Settings > Plugins tab.  
+    If it's enabled for the first time,
+    1.  A dialogue window will appear asking to copy the example scenes out of `addons/`.
 6.  Continue with the [Existing Project Instructions](/addons/maaacks_credits_scene/docs/ExistingProject.md) 
 
 #### Extras
