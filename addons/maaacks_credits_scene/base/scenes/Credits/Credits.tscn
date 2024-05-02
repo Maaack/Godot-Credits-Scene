@@ -30,10 +30,12 @@ layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="HeaderSpace" type="Control" parent="ScrollContainer/VBoxContainer"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 720)
 layout_mode = 2
 
-[node name="RichTextLabel" type="RichTextLabel" parent="ScrollContainer/VBoxContainer"]
+[node name="CreditsLabel" type="RichTextLabel" parent="ScrollContainer/VBoxContainer"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(1280, 0)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -43,6 +45,7 @@ fit_content = true
 scroll_active = false
 
 [node name="FooterSpace" type="Control" parent="ScrollContainer/VBoxContainer"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 720)
 layout_mode = 2
 
@@ -51,6 +54,6 @@ wait_time = 1.5
 one_shot = true
 
 [connection signal="scroll_ended" from="ScrollContainer" to="." method="_on_ScrollContainer_scroll_ended"]
-[connection signal="gui_input" from="ScrollContainer/VBoxContainer/RichTextLabel" to="." method="_on_RichTextLabel_gui_input"]
-[connection signal="meta_clicked" from="ScrollContainer/VBoxContainer/RichTextLabel" to="." method="_on_RichTextLabel_meta_clicked"]
+[connection signal="gui_input" from="ScrollContainer/VBoxContainer/CreditsLabel" to="." method="_on_CreditsLabel_gui_input"]
+[connection signal="meta_clicked" from="ScrollContainer/VBoxContainer/CreditsLabel" to="." method="_on_CreditsLabel_meta_clicked"]
 [connection signal="timeout" from="ScrollResetTimer" to="." method="_on_ScrollResetTimer_timeout"]
