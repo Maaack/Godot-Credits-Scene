@@ -18,7 +18,8 @@ For adding scrolling credits to your scenes that can auto-update from a projects
   - Supports mouse-wheel scrolling.
   - Supports clicking on external links.
 - Generates content from reading an attribution file in markdown (`.md`) format.
-- Easy to plug in.
+- End Credits example scene.
+- Assisted plugin installation.
 
 ### How it Works
 
