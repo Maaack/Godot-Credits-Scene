@@ -58,6 +58,8 @@ func _save_resource(resource_path : String, resource_destination : String, white
 			return ResourceSaver.save(file_object, resource_destination, ResourceSaver.FLAG_CHANGE_PATH)
 		else:
 			return ERR_FILE_UNRECOGNIZED
+	else:
+		return ERR_FILE_UNRECOGNIZED
 	return OK
 
 func _delayed_reimporting_file(file_path : String):
@@ -71,23 +73,30 @@ func _delayed_reimporting_file(file_path : String):
 	add_child(timer)
 	timer.start(REIMPORT_FILE_DELAY)
 
-func _copy_file_path(file_path : String, destination_path : String, target_path : String) -> Error:
+func _raw_copy_file_path(file_path : String, destination_path : String) -> Error:
+	var dir := DirAccess.open("res://")
+	var error := dir.copy(file_path, destination_path)
+	if not error:
+		EditorInterface.get_resource_filesystem().update_file(destination_path)
+	return error
+
+func _copy_file_path(file_path : String, destination_path : String, target_path : String, raw_copy_file_extensions : PackedStringArray = []) -> Error:
+	if file_path.get_extension() in raw_copy_file_extensions:
+		# Markdown file format
+		return _raw_copy_file_path(file_path, destination_path)
 	var error = _save_resource(file_path, destination_path)
 	if error == ERR_FILE_UNRECOGNIZED:
 		# Copy image files and other assets
-		var dir = DirAccess.open("res://")
-		error = dir.copy(file_path, destination_path)
+		error = _raw_copy_file_path(file_path, destination_path)
 		# Reimport image files to create new .import
 		if not error:
-			var file_system = EditorInterface.get_resource_filesystem()
-			file_system.update_file(destination_path)
 			_delayed_reimporting_file(destination_path)
 		return error
 	if not error:
 		_replace_file_contents(destination_path, target_path)
 	return error
 
-func _copy_directory_path(dir_path : String, target_path : String):
+func _copy_directory_path(dir_path : String, target_path : String, raw_copy_file_extensions : PackedStringArray = []):
 	if not dir_path.ends_with("/"):
 		dir_path += "/"
 	var dir = DirAccess.open(dir_path)
@@ -102,9 +111,9 @@ func _copy_directory_path(dir_path : String, target_path : String):
 			if dir.current_is_dir():
 				if not dir.dir_exists(destination_path):
 					error = dir.make_dir(destination_path)
-				_copy_directory_path(full_file_path, target_path)
+				_copy_directory_path(full_file_path, target_path, raw_copy_file_extensions)
 			else:
-				error = _copy_file_path(full_file_path, destination_path, target_path)
+				error = _copy_file_path(full_file_path, destination_path, target_path, raw_copy_file_extensions)
 			file_name = dir.get_next()
 		if error:
 			push_error("plugin error - copying path: %s" % error)
@@ -126,7 +135,7 @@ func _copy_to_directory(target_path : String):
 	ProjectSettings.save()
 	if not target_path.ends_with("/"):
 		target_path += "/"
-	_copy_directory_path(get_plugin_examples_path(), target_path)
+	_copy_directory_path(get_plugin_examples_path(), target_path, ["md"])
 	_delayed_saving(target_path)
 
 func _open_path_dialog():
