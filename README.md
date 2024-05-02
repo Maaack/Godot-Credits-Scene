@@ -1,53 +1,35 @@
 # Godot Credits Scene
 For Godot 4.2
 
-This template has a main menu, options menus, credits, and a scene loader.
+This credits scene scrolls text that is read from an attribution file in a markdown (`.md`) format.
 
 [Example on itch.io](https://maaack.itch.io/godot-game-template)  
 _Example is of [Maaack's Game Template](https://github.com/Maaack/Godot-Game-Template), which includes additional features._
 
-![Main Menu](/addons/maaacks_credits_scene/media/Screenshot-3-1.png)  
-![Key Rebinding](/addons/maaacks_credits_scene/media/Screenshot-3-2.png)  
-![Audio Controls](/addons/maaacks_credits_scene/media/Screenshot-3-4.png)  
 ![Credits Screen](/addons/maaacks_credits_scene/media/Screenshot-3-5.png)  
-[All screenshots](/addons/maaacks_credits_scene/docs/Screenshots.md)
 
 ## Use Case
-Setup menus and accessibility features in about 15 minutes.
-
-The core components can support a larger project, but the template was originally built to support smaller projects and game jams.
+For adding scrolling credits to your scenes that can auto-update from a projects `ATTRIBUTION.md`, `CONTRIBUTORS.md`, or similar attribution markdown file.
 
 ## Features
 
-### Base
-
-The `base/` folder holds the core components of the menus application.
-
--   Main Menu    
--   Options Menus
--   Credits
--   Loading Screen
--   Persistent Settings
--   Simple Config Interface
--   Keyboard/Mouse Support
--   Gamepad Support
--   UI Sound Controller
--   Background Music Controller
+- Classic scrolling text.
+- Interactable:
+  - Supports mouse-wheel scrolling.
+  - Supports clicking on external links.
+- Generates content from reading an attribution file in markdown (`.md`) format.
+- Easy to plug in.
 
 ### How it Works
-- `AppConfig.tscn` is set as the first autoload. It loads all the configuration settings from the config file (if it exists).
-- `SceneLoader.tscn` is set as the second autoload.  It can load scenes in the background or with a loading screen (`LoadingScreen.tscn` by default).   
-- `MainMenu.tscn` is where a player can start the game, change settings, watch credits, or quit. It can link to the path of a game scene to play, and the packed scene of an options menu to use.  
+
 - `Credits.tscn` reads from `ATTRIBUTION.md` to automatically generate the content for it's scrolling text label.  
-- The `UISoundController` node automatically attaches sounds to buttons, tab bars, sliders, and line edits in the scene. `ProjectUISoundController.tscn` is an autload used to apply UI sounds project-wide.
-- `ProjectMusicController.tscn` is an autoload that keeps music playing between scenes. It detects music stream players as they are added to the scene tree, reparents them to itself, and blends the tracks.  
-  
+
 ## Installation
 
 ### Godot Asset Library
 This package is available as a plugin, meaning it can be added to an existing project. 
 
-![Package Icon](/addons/maaacks_credits_scene/media/Menus-Icon-black-transparent-256x256.png)  
+![Package Icon](/addons/maaacks_credits_scene/media/CreditsScene-Icon-black-transparent-256x256.png)  
 
 When editing an existing project:
 
