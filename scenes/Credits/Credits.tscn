@@ -8,8 +8,7 @@ script = ExtResource("2_7ss2e")
 attribution_file_path = "res://ATTRIBUTION.md"
 
 [node name="CreditsLabel" parent="ScrollContainer/VBoxContainer" index="1"]
-text = "[center]
-[font_size=48]Collaborators[/font_size]
+text = "[center][font_size=48]Collaborators[/font_size]
 
 [font_size=32]Godot Credits Scene[/font_size]
 Author: [url=https://github.com/Maaack/Godot-Credits-Scene/graphs/contributors]Marek Belski[/url]  
