@@ -8,7 +8,6 @@
 [node name="EndCredits" instance=ExtResource("1_hxhi3")]
 script = ExtResource("2_hsyde")
 main_menu_scene = ""
-scroll_active = true
 
 [node name="BackgroundMusicPlayer" parent="." index="0" instance=ExtResource("3_738dg")]
 
