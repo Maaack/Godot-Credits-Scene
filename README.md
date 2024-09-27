@@ -1,5 +1,5 @@
 # Godot Credits Scene
-For Godot 4.2
+For Godot 4.2+
 
 This credits scene scrolls text that is read from an attribution file in a markdown (`.md`) format.
 
