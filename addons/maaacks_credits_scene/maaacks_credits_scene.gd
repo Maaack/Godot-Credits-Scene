@@ -139,13 +139,13 @@ func _copy_to_directory(target_path : String):
 	_delayed_saving(target_path)
 
 func _open_path_dialog():
-	var destination_scene : PackedScene = load(get_plugin_path() + "installer/DestinationDialog.tscn")
+	var destination_scene : PackedScene = load(get_plugin_path() + "installer/destination_dialog.tscn")
 	var destination_instance : FileDialog = destination_scene.instantiate()
 	destination_instance.dir_selected.connect(_copy_to_directory)
 	add_child(destination_instance)
 
 func _open_confirmation_dialog():
-	var confirmation_scene : PackedScene = load(get_plugin_path() + "installer/CopyConfirmationDialog.tscn")
+	var confirmation_scene : PackedScene = load(get_plugin_path() + "installer/copy_confirmation_dialog.tscn")
 	var confirmation_instance : ConfirmationDialog = confirmation_scene.instantiate()
 	confirmation_instance.confirmed.connect(_open_path_dialog)
 	add_child(confirmation_instance)
