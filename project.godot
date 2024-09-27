@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Credits Scene Plugin"
-run/main_scene="res://addons/maaacks_credits_scene/base/scenes/credits/credits.tscn"
+run/main_scene="res://scenes/credits/credits.tscn"
 config/features=PackedStringArray("4.3")
 config/icon="res://icon.png"
 
