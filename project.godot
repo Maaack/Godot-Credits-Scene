@@ -11,8 +11,8 @@ config_version=5
 [application]
 
 config/name="Credits Scene Plugin"
-run/main_scene="res://scenes/credits/credits.tscn"
-config/features=PackedStringArray("4.3")
+run/main_scene="res://scenes/end_credits/end_credits.tscn"
+config/features=PackedStringArray("4.4")
 config/icon="res://icon.png"
 
 [display]
@@ -89,8 +89,9 @@ interact={
 
 [maaacks_credits_scene]
 
-disable_plugin_dialogues=true
 copy_path="res://"
+disable_update_check=false
+disable_install_wizard=true
 
 [physics]
 
