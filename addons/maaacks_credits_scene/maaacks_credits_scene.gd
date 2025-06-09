@@ -5,13 +5,20 @@ const PLUGIN_NAME = "Maaack's Credits Scene"
 const PROJECT_SETTINGS_PATH = "maaacks_credits_scene/"
 
 const EXAMPLES_RELATIVE_PATH = "examples/"
-const MAIN_SCENE_RELATIVE_PATH = "scenes/credits/credits.tscn"
+const MAIN_SCENE_RELATIVE_PATH = "scenes/end_credits/end_credits.tscn"
 const UID_PREG_MATCH = r'uid="uid:\/\/[0-9a-z]+" '
-const RESAVING_DELAY : float = 0.5
-const REIMPORT_FILE_DELAY : float = 0.2
+const WINDOW_OPEN_DELAY : float = 0.5
+const RUNNING_CHECK_DELAY : float = 0.25
+const RESAVING_DELAY : float = 1.0
 const OPEN_EDITOR_DELAY : float = 0.1
+const RAW_COPY_EXTENSIONS : Array = ["gd", "md", "txt"]
+const OMIT_COPY_EXTENSIONS : Array = ["uid"]
+const REPLACE_CONTENT_EXTENSIONS : Array = ["gd", "tscn", "tres", "md"]
 
-func _get_plugin_name():
+var selected_theme : String
+var update_plugin_tool_string : String
+
+func _get_plugin_name() -> String:
 	return PLUGIN_NAME
 
 func get_plugin_path() -> String:
@@ -20,42 +27,38 @@ func get_plugin_path() -> String:
 func get_plugin_examples_path() -> String:
 	return get_plugin_path() + EXAMPLES_RELATIVE_PATH
 
-func _update_main_scene(main_scene_path : String):
-	ProjectSettings.set_setting("application/run/main_scene", main_scene_path)
-	ProjectSettings.save()
-
 func _open_play_opening_confirmation_dialog(target_path : String):
 	var play_confirmation_scene : PackedScene = load(get_plugin_path() + "installer/play_opening_confirmation_dialog.tscn")
 	var play_confirmation_instance : ConfirmationDialog = play_confirmation_scene.instantiate()
 	play_confirmation_instance.confirmed.connect(_run_opening_scene.bind(target_path))
 	add_child(play_confirmation_instance)
 
-func _open_delete_examples_confirmation_dialog(target_path : String):
+func _open_delete_examples_confirmation_dialog(target_path : String) -> void:
 	var delete_confirmation_scene : PackedScene = load(get_plugin_path() + "installer/delete_examples_confirmation_dialog.tscn")
 	var delete_confirmation_instance : ConfirmationDialog = delete_confirmation_scene.instantiate()
 	delete_confirmation_instance.confirmed.connect(_delete_source_examples_directory.bind(target_path))
 	add_child(delete_confirmation_instance)
 
-func _open_delete_examples_short_confirmation_dialog():
+func _open_delete_examples_short_confirmation_dialog() -> void:
 	var delete_confirmation_scene : PackedScene = load(get_plugin_path() + "installer/delete_examples_short_confirmation_dialog.tscn")
 	var delete_confirmation_instance : ConfirmationDialog = delete_confirmation_scene.instantiate()
 	delete_confirmation_instance.confirmed.connect(_delete_source_examples_directory)
 	add_child(delete_confirmation_instance)
 
-func _run_opening_scene(target_path : String):
+func _run_opening_scene(target_path : String) -> void:
 	var opening_scene_path = target_path + MAIN_SCENE_RELATIVE_PATH
 	EditorInterface.play_custom_scene(opening_scene_path)
 	var timer: Timer = Timer.new()
-	var callable := func():
+	var callable := func() -> void:
 		if EditorInterface.is_playing_scene(): return
 		timer.stop()
 		_open_delete_examples_confirmation_dialog(target_path)
 		timer.queue_free()
 	timer.timeout.connect(callable)
 	add_child(timer)
-	timer.start(RESAVING_DELAY)
+	timer.start(RUNNING_CHECK_DELAY)
 
-func _delete_directory_recursive(dir_path : String):
+func _delete_directory_recursive(dir_path : String) -> void:
 	if not dir_path.ends_with("/"):
 		dir_path += "/"
 	var dir = DirAccess.open(dir_path)
@@ -77,7 +80,7 @@ func _delete_directory_recursive(dir_path : String):
 		push_error("plugin error - accessing path: %s" % dir)
 	dir.remove(dir_path)
 
-func _delete_source_examples_directory(target_path : String = ""):
+func _delete_source_examples_directory(target_path : String = "") -> void:
 	var examples_path = get_plugin_examples_path()
 	var dir := DirAccess.open("res://")
 	if dir.dir_exists(examples_path):
@@ -86,11 +89,10 @@ func _delete_source_examples_directory(target_path : String = ""):
 		remove_tool_menu_item("Copy " + _get_plugin_name() + " Examples...")
 		remove_tool_menu_item("Delete " + _get_plugin_name() + " Examples...")
 
-func _replace_file_contents(file_path : String, target_path : String):
+func _replace_file_contents(file_path : String, target_path : String) -> void:
 	var extension : String = file_path.get_extension()
-	if extension == "import":
-		# skip import files
-		return OK
+	if extension not in REPLACE_CONTENT_EXTENSIONS:
+		return
 	var file = FileAccess.open(file_path, FileAccess.READ)
 	var regex = RegEx.new()
 	regex.compile(UID_PREG_MATCH)
@@ -99,7 +101,7 @@ func _replace_file_contents(file_path : String, target_path : String):
 		return
 	var original_content = file.get_as_text()
 	var replaced_content = regex.sub(original_content, "", true)
-	replaced_content = replaced_content.replace(get_plugin_examples_path(), target_path)
+	replaced_content = replaced_content.replace(get_plugin_examples_path().trim_prefix("res://"), target_path.trim_prefix("res://"))
 	file.close()
 	if replaced_content == original_content: return
 	file = FileAccess.open(file_path, FileAccess.WRITE)
@@ -125,41 +127,26 @@ func _save_resource(resource_path : String, resource_destination : String, white
 		return ERR_FILE_UNRECOGNIZED
 	return OK
 
-func _delayed_reimporting_file(file_path : String):
-	var timer: Timer = Timer.new()
-	var callable := func():
-		timer.stop()
-		var file_system = EditorInterface.get_resource_filesystem()
-		file_system.reimport_files([file_path])
-		timer.queue_free()
-	timer.timeout.connect(callable)
-	add_child(timer)
-	timer.start(REIMPORT_FILE_DELAY)
-
 func _raw_copy_file_path(file_path : String, destination_path : String) -> Error:
 	var dir := DirAccess.open("res://")
 	var error := dir.copy(file_path, destination_path)
-	if not error:
-		EditorInterface.get_resource_filesystem().update_file(destination_path)
 	return error
 
-func _copy_file_path(file_path : String, destination_path : String, target_path : String, raw_copy_file_extensions : PackedStringArray = []) -> Error:
-	if file_path.get_extension() in raw_copy_file_extensions:
-		# Markdown file format
-		return _raw_copy_file_path(file_path, destination_path)
-	var error = _save_resource(file_path, destination_path)
-	if error == ERR_FILE_UNRECOGNIZED:
-		# Copy image files and other assets
-		error = _raw_copy_file_path(file_path, destination_path)
-		# Reimport image files to create new .import
-		if not error:
-			_delayed_reimporting_file(destination_path)
+func _copy_file_path(file_path : String, destination_path : String, target_path : String) -> Error:
+	var error : Error
+	if file_path.get_extension() in OMIT_COPY_EXTENSIONS:
 		return error
+	if file_path.get_extension() in RAW_COPY_EXTENSIONS:
+		error = _raw_copy_file_path(file_path, destination_path)
+	else:
+		error = _save_resource(file_path, destination_path)
+		if error == ERR_FILE_UNRECOGNIZED:
+			error = _raw_copy_file_path(file_path, destination_path)
 	if not error:
 		_replace_file_contents(destination_path, target_path)
 	return error
 
-func _copy_directory_path(dir_path : String, target_path : String, raw_copy_file_extensions : PackedStringArray = []):
+func _copy_directory_path(dir_path : String, target_path : String) -> void:
 	if not dir_path.ends_with("/"):
 		dir_path += "/"
 	var dir = DirAccess.open(dir_path)
@@ -174,72 +161,132 @@ func _copy_directory_path(dir_path : String, target_path : String, raw_copy_file
 			if dir.current_is_dir():
 				if not dir.dir_exists(destination_path):
 					error = dir.make_dir(destination_path)
-				_copy_directory_path(full_file_path, target_path, raw_copy_file_extensions)
+				_copy_directory_path(full_file_path, target_path)
 			else:
-				error = _copy_file_path(full_file_path, destination_path, target_path, raw_copy_file_extensions)
+				error = _copy_file_path(full_file_path, destination_path, target_path)
 			file_name = dir.get_next()
 		if error:
 			push_error("plugin error - copying path: %s" % error)
 	else:
 		push_error("plugin error - accessing path: %s" % dir_path)
 
-func _delayed_saving(target_path : String):
+func _delayed_play_opening_confirmation_dialog(target_path : String) -> void:
 	var timer: Timer = Timer.new()
 	var callable := func():
 		timer.stop()
-		EditorInterface.get_resource_filesystem().scan()
-		EditorInterface.save_all_scenes()
 		_open_play_opening_confirmation_dialog(target_path)
+		timer.queue_free()
+	timer.timeout.connect(callable)
+	add_child(timer)
+	timer.start(WINDOW_OPEN_DELAY)
+
+func _wait_for_scan_and_delay_next_prompt(target_path : String) -> void:
+	var timer: Timer = Timer.new()
+	var callable := func():
+		if EditorInterface.get_resource_filesystem().is_scanning(): return
+		timer.stop()
+		_delayed_play_opening_confirmation_dialog(target_path)
+		timer.queue_free()
+	timer.timeout.connect(callable)
+	add_child(timer)
+	timer.start(RUNNING_CHECK_DELAY)
+
+func _delayed_saving_and_next_prompt(target_path : String) -> void:
+	var timer: Timer = Timer.new()
+	var callable := func():
+		timer.stop()
+		EditorInterface.save_all_scenes()
+		EditorInterface.get_resource_filesystem().scan()
+		_wait_for_scan_and_delay_next_prompt(target_path)
 		timer.queue_free()
 	timer.timeout.connect(callable)
 	add_child(timer)
 	timer.start(RESAVING_DELAY)
 
-func _copy_to_directory(target_path : String):
+func _copy_to_directory(target_path : String) -> void:
 	ProjectSettings.set_setting(PROJECT_SETTINGS_PATH + "copy_path", target_path)
 	ProjectSettings.save()
 	if not target_path.ends_with("/"):
 		target_path += "/"
-	_copy_directory_path(get_plugin_examples_path(), target_path, ["md"])
-	_delayed_saving(target_path)
+	_copy_directory_path(get_plugin_examples_path(), target_path)
+	_delayed_saving_and_next_prompt(target_path)
 
-func _open_path_dialog():
+func _open_path_dialog() -> void:
 	var destination_scene : PackedScene = load(get_plugin_path() + "installer/destination_dialog.tscn")
 	var destination_instance : FileDialog = destination_scene.instantiate()
 	destination_instance.dir_selected.connect(_copy_to_directory)
 	add_child(destination_instance)
 
-func _open_confirmation_dialog():
+func _open_confirmation_dialog() -> void:
 	var confirmation_scene : PackedScene = load(get_plugin_path() + "installer/copy_confirmation_dialog.tscn")
 	var confirmation_instance : ConfirmationDialog = confirmation_scene.instantiate()
 	confirmation_instance.confirmed.connect(_open_path_dialog)
 	add_child(confirmation_instance)
 
-func _show_plugin_dialogues():
-	if ProjectSettings.has_setting(PROJECT_SETTINGS_PATH + "disable_plugin_dialogues") :
-		if ProjectSettings.get_setting(PROJECT_SETTINGS_PATH + "disable_plugin_dialogues") :
+func _open_check_plugin_version() -> void:
+	if ProjectSettings.has_setting(PROJECT_SETTINGS_PATH + "disable_update_check"):
+		if ProjectSettings.get_setting(PROJECT_SETTINGS_PATH + "disable_update_check"):
+			return
+	else:
+		ProjectSettings.set_setting(PROJECT_SETTINGS_PATH + "disable_update_check", false)
+		ProjectSettings.save()
+	var check_version_scene : PackedScene = load(get_plugin_path() + "installer/check_plugin_version.tscn")
+	var check_version_instance : Node = check_version_scene.instantiate()
+	check_version_instance.auto_start = true
+	check_version_instance.new_version_detected.connect(_add_update_plugin_tool_option)
+	add_child(check_version_instance)
+
+func _open_update_plugin() -> void:
+	var update_plugin_scene : PackedScene = load(get_plugin_path() + "installer/update_plugin.tscn")
+	var update_plugin_instance : Node = update_plugin_scene.instantiate()
+	update_plugin_instance.auto_start = true
+	update_plugin_instance.update_completed.connect(_remove_update_plugin_tool_option)
+	add_child(update_plugin_instance)
+
+func _add_update_plugin_tool_option(new_version : String) -> void:
+	update_plugin_tool_string = "Update %s to v%s..." % [_get_plugin_name(), new_version]
+	add_tool_menu_item(update_plugin_tool_string, _open_update_plugin)
+
+func _remove_update_plugin_tool_option() -> void:
+	if update_plugin_tool_string.is_empty(): return
+	remove_tool_menu_item(update_plugin_tool_string)
+	update_plugin_tool_string = ""
+
+func _deprecate_old_setting_name() -> void:
+	if not ProjectSettings.has_setting(PROJECT_SETTINGS_PATH + "disable_plugin_dialogues"): return
+	var prior_setting : bool = ProjectSettings.get_setting(PROJECT_SETTINGS_PATH + "disable_plugin_dialogues", false)
+	ProjectSettings.set_setting(PROJECT_SETTINGS_PATH + "disable_install_wizard", prior_setting)
+	ProjectSettings.set_setting(PROJECT_SETTINGS_PATH + "disable_plugin_dialogues", null)
+
+func _show_plugin_dialogues() -> void:
+	_deprecate_old_setting_name()
+	if ProjectSettings.has_setting(PROJECT_SETTINGS_PATH + "disable_install_wizard") :
+		if ProjectSettings.get_setting(PROJECT_SETTINGS_PATH + "disable_install_wizard") :
 			return
 	_open_confirmation_dialog()
-	ProjectSettings.set_setting(PROJECT_SETTINGS_PATH + "disable_plugin_dialogues", true)
+	ProjectSettings.set_setting(PROJECT_SETTINGS_PATH + "disable_install_wizard", true)
 	ProjectSettings.save()
 
-func _add_copy_tool_if_examples_exists():
+func _add_tool_options() -> void:
 	var examples_path = get_plugin_examples_path()
 	var dir := DirAccess.open("res://")
 	if dir.dir_exists(examples_path):
 		add_tool_menu_item("Copy " + _get_plugin_name() + " Examples...", _open_path_dialog)
 		add_tool_menu_item("Delete " + _get_plugin_name() + " Examples...", _open_delete_examples_short_confirmation_dialog)
+	_open_check_plugin_version()
 
-func _remove_copy_tool_if_examples_exists():
+func _remove_tool_options() -> void:
 	var examples_path = get_plugin_examples_path()
 	var dir := DirAccess.open("res://")
 	if dir.dir_exists(examples_path):
 		remove_tool_menu_item("Copy " + _get_plugin_name() + " Examples...")
 		remove_tool_menu_item("Delete " + _get_plugin_name() + " Examples...")
+	remove_tool_menu_item("Use Input Icons for " + _get_plugin_name() + "...")
+	_remove_update_plugin_tool_option()
 
 func _enter_tree():
-	_add_copy_tool_if_examples_exists()
+	_add_tool_options()
 	_show_plugin_dialogues()
 
 func _exit_tree():
-	_remove_copy_tool_if_examples_exists()
+	_remove_tool_options()

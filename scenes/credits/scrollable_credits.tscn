@@ -1,25 +1,26 @@
-[gd_scene load_steps=3 format=3 uid="uid://xksi7vf1pvbb"]
+[gd_scene load_steps=3 format=3 uid="uid://bmdiscn3l4jpn"]
 
-[ext_resource type="PackedScene" uid="uid://t2dui8ppm3a4" path="res://addons/maaacks_credits_scene/base/scenes/credits/credits.tscn" id="1_68vsh"]
-[ext_resource type="Script" path="res://scenes/credits/credits.gd" id="2_7ss2e"]
+[ext_resource type="PackedScene" uid="uid://osxulxw2oas3" path="res://addons/maaacks_credits_scene/base/scenes/credits/scrollable_credits.tscn" id="1_jnbjt"]
+[ext_resource type="Script" uid="uid://82f22105brey" path="res://scenes/credits/scrollable_credits.gd" id="2_35kdw"]
 
-[node name="Credits" instance=ExtResource("1_68vsh")]
-script = ExtResource("2_7ss2e")
-attribution_file_path = "res://ATTRIBUTION.md"
+[node name="ScrollableCredits" instance=ExtResource("1_jnbjt")]
+script = ExtResource("2_35kdw")
 
-[node name="CreditsLabel" parent="ScrollContainer/VBoxContainer" index="1"]
+[node name="CreditsLabel" parent="." index="0"]
 text = "[center][font_size=48]Collaborators[/font_size]
 
 [font_size=32]Godot Credits Scene[/font_size]
+[img=80]res:///addons/maaacks_credits_scene/examples/assets/icon.png[/img]  
 Author: [url=https://github.com/Maaack/Godot-Credits-Scene/graphs/contributors]Marek Belski[/url]  
 Source: [url=https://github.com/Maaack/Godot-Credits-Scene]github: Godot-Credits-Scene[/url]  
 License: [url=LICENSE.txt]MIT License[/url]  
 
 [font_size=48]Tools[/font_size]
 [font_size=24]Godot[/font_size]
+[img=80]res:///addons/maaacks_credits_scene/assets/godot_engine_logo/logo_vertical_color_dark.png[/img]  
 Author: [url=https://godotengine.org/contact]Juan Linietsky, Ariel Manzur, and contributors[/url]  
 Source: [url=https://godotengine.org/]godotengine.org[/url]  
-License: [url=https://github.com/godotengine/godot/blob/master/LICENSE.txt]MIT License[/url] 
+License: [url=https://github.com/godotengine/godot/blob/master/LICENSE.txt]MIT License[/url]  
 
 [font_size=24]Visual Studio Code[/font_size]
 Author: [url=https://opensource.microsoft.com/]Microsoft[/url]  
@@ -27,7 +28,10 @@ Source: [url=https://github.com/microsoft/vscode]github: vscode[/url]
 License: [url=https://github.com/microsoft/vscode/blob/main/LICENSE.txt]MIT License[/url]
 
 [font_size=24]Git[/font_size]
+[img=80]res:///addons/maaacks_credits_scene/assets/git_logo/Git-Logo-2Color.png[/img]  
 Author: [url=https://github.com/torvalds]Linus Torvalds[/url]  
 Source: [url=https://git-scm.com/downloads]git-scm.com[/url]  
 License: [url=https://opensource.org/licenses/GPL-2.0]GNU General Public License version 2[/url]
+  
 [/center]"
+attribution_file_path = "res://ATTRIBUTION.md"
