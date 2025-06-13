@@ -30,7 +30,7 @@ For adding scrolling credits to your scenes that can auto-update from a project'
 ### Godot Asset Library
 This package is available as a plugin, meaning it can be added to an existing project. 
 
-![Package Icon](/addons/maaacks_credits_scene/media/CreditsScene-Icon-black-transparent-256x256.png)  
+![Package Icon](/addons/maaacks_credits_scene/media/credits_scene-icon-black-transparent-256x256.png)  
 
 When editing an existing project:
 
