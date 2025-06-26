@@ -2,10 +2,21 @@
 ## Collaborators
 
 ### Godot Credits Scene
-![Maaack Plugin Icon](/addons/maaacks_credits_scene/examples/assets/icon.png)  
-Author: [Marek Belski](https://github.com/Maaack/Godot-Credits-Scene/graphs/contributors)  
+![Maaack Plugin Icon](/addons/maaacks_credits_scene/assets/plugin_logo/logo.png)  
+Author: [Marek Belski and contributors](https://github.com/Maaack/Godot-Credits-Scene/graphs/contributors)  
 Source: [github: Godot-Credits-Scene](https://github.com/Maaack/Godot-Credits-Scene)  
 License: [MIT License](LICENSE.txt)  
+
+## Sourced
+#### Godot Engine Logo
+Author: Andrea Calabró  
+Source: [godotengine.org : press](https://godotengine.org/press/)  
+License: [CC BY 4.0 International](https://github.com/godotengine/godot/blob/master/LOGO_LICENSE.txt) 
+
+#### Git Logo
+Author: [Jason Long](https://bsky.app/profile/jasonlong.me)  
+Source: [git-scm.com : logos](https://git-scm.com/downloads/logos)  
+License: [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/) 
 
 ## Tools
 #### Godot
@@ -24,4 +35,3 @@ License: [MIT License](https://github.com/microsoft/vscode/blob/main/LICENSE.txt
 Author: [Linus Torvalds](https://github.com/torvalds)  
 Source: [git-scm.com](https://git-scm.com/downloads)  
 License: [GNU General Public License version 2](https://opensource.org/licenses/GPL-2.0)
-  

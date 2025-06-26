@@ -13,6 +13,10 @@ Author: [Name]()
 Source: [Domain : webpage.html]()  
 License: [License]()
 
+#### Godot Engine Logo
+Author: Andrea Calabró  
+Source: [godotengine.org : press](https://godotengine.org/press/)  
+License: [CC BY 4.0 International](https://github.com/godotengine/godot/blob/master/LOGO_LICENSE.txt) 
 
 ## Tools
 #### Godot
@@ -22,8 +26,8 @@ Source: [godotengine.org](https://godotengine.org/)
 License: [MIT License](https://github.com/godotengine/godot/blob/master/LICENSE.txt) 
 
 #### Godot Credits Scene
-![Maaack Plugin Icon](/addons/maaacks_credits_scene/examples/assets/icon.png)  
-Author: [Marek Belski](https://github.com/Maaack/Godot-Credits-Scene/graphs/contributors)  
+![Maaack Plugin Icon](/addons/maaacks_credits_scene/examples/assets/plugin_logo/logo.png)  
+Author: [Marek Belski and contributors](https://github.com/Maaack/Godot-Credits-Scene/graphs/contributors)  
 Source: [github: Godot-Credits-Scene](https://github.com/Maaack/Godot-Credits-Scene)  
 License: [MIT License](LICENSE.txt)  
 
