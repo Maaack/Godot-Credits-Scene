@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cgdb2p0ctknhg"
-path="res://.godot/imported/icon.png-ec4d7987d66ac7164e8fab141086a1d6.ctex"
+uid="uid://cwe2s2mr1xn7h"
+path="res://.godot/imported/logo.png-31474a8ee58537d771c887e29197a8a3.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://addons/maaacks_credits_scene/assets/icon.png"
-dest_files=["res://.godot/imported/icon.png-ec4d7987d66ac7164e8fab141086a1d6.ctex"]
+source_file="res://assets/plugin_logo/logo.png"
+dest_files=["res://.godot/imported/logo.png-31474a8ee58537d771c887e29197a8a3.ctex"]
 
 [params]
 

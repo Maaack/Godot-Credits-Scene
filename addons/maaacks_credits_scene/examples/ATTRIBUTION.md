@@ -13,7 +13,6 @@ Author: [Name]()
 Source: [Domain : webpage.html]()  
 License: [License]()
 
-
 ## Tools
 #### Godot
 ![Godot Engine Logo](/addons/maaacks_credits_scene/examples/assets/godot_engine_logo/logo_vertical_color_dark.png)  
@@ -22,8 +21,8 @@ Source: [godotengine.org](https://godotengine.org/)
 License: [MIT License](https://github.com/godotengine/godot/blob/master/LICENSE.txt) 
 
 #### Godot Credits Scene
-![Maaack Plugin Icon](/addons/maaacks_credits_scene/examples/assets/icon.png)  
-Author: [Marek Belski](https://github.com/Maaack/Godot-Credits-Scene/graphs/contributors)  
+![Maaack Plugin Icon](/addons/maaacks_credits_scene/examples/assets/plugin_logo/logo.png)  
+Author: [Marek Belski and contributors](https://github.com/Maaack/Godot-Credits-Scene/graphs/contributors)  
 Source: [github: Godot-Credits-Scene](https://github.com/Maaack/Godot-Credits-Scene)  
 License: [MIT License](LICENSE.txt)  
 
