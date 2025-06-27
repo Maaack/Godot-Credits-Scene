@@ -6,9 +6,13 @@ This credits scene scrolls text that is read from an attribution file in a markd
 [Example on itch.io](https://maaack.itch.io/godot-game-template)  
 _Example is of [Maaack's Game Template](https://github.com/Maaack/Godot-Game-Template), which includes additional features._
 
-![Credits Screen](/addons/maaacks_credits_scene/media/Screenshot-3-5.png)  
+### Screenshots
 
-## Use Case
+![Credits Screen](/addons/maaacks_credits_scene/media/Screenshot-3-5.png)  
+[More Screenshots](/addons/maaacks_credits_scene/docs/Screenshots.md)  
+
+## Objective
+
 For adding scrolling credits to your scenes that can auto-update from a project's `ATTRIBUTION.md`, `CONTRIBUTORS.md`, or similar attribution markdown file.
 
 ## Features
