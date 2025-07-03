@@ -1,5 +1,9 @@
 @tool
+class_name MaaacksCreditsScenePlugin
 extends EditorPlugin
+
+const APIClient = preload("res://addons/maaacks_credits_scene/utilities/api_client.gd")
+const DownloadAndExtract = preload("res://addons/maaacks_credits_scene/utilities/download_and_extract.gd")
 
 const PLUGIN_NAME = "Maaack's Credits Scene"
 const PROJECT_SETTINGS_PATH = "maaacks_credits_scene/"
