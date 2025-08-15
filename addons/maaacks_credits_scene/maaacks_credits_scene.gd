@@ -14,7 +14,6 @@ const UID_PREG_MATCH = r'uid="uid:\/\/[0-9a-z]+" '
 const WINDOW_OPEN_DELAY : float = 0.5
 const RUNNING_CHECK_DELAY : float = 0.25
 const RESAVING_DELAY : float = 1.0
-const OPEN_EDITOR_DELAY : float = 0.1
 const RAW_COPY_EXTENSIONS : Array = ["gd", "md", "txt"]
 const OMIT_COPY_EXTENSIONS : Array = ["uid"]
 const REPLACE_CONTENT_EXTENSIONS : Array = ["gd", "tscn", "tres", "md"]
@@ -256,7 +255,6 @@ func _remove_update_plugin_tool_option() -> void:
 	remove_tool_menu_item(update_plugin_tool_string)
 	update_plugin_tool_string = ""
 
-
 func _show_plugin_dialogues() -> void:
 	if ProjectSettings.has_setting(PROJECT_SETTINGS_PATH + "disable_install_wizard") :
 		if ProjectSettings.get_setting(PROJECT_SETTINGS_PATH + "disable_install_wizard") :
@@ -282,9 +280,9 @@ func _remove_tool_options() -> void:
 	remove_tool_menu_item("Use Input Icons for " + _get_plugin_name() + "...")
 	_remove_update_plugin_tool_option()
 
-func _enter_tree():
+func _enter_tree() -> void:
 	_add_tool_options()
 	_show_plugin_dialogues()
 
-func _exit_tree():
+func _exit_tree() -> void:
 	_remove_tool_options()
