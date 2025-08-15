@@ -63,9 +63,9 @@ When editing an existing project:
     1.  A dialogue window will appear asking to copy the example scenes out of `addons/`.
 6.  Continue with the [Existing Project Instructions](/addons/maaacks_credits_scene/docs/ExistingProject.md) 
 
-#### Extras
+### Extras or Components
 
-Users that want additional features can try [Maaack's Game Template](https://github.com/Maaack/Godot-Game-Template).  
+Users that want additional features can try [Maaack's Game Template](https://github.com/Maaack/Godot-Game-Template) or other options from the [plugin suite](/addons/maaacks_credits_scene/docs/PluginSuite.md).  
 
 ## Usage
 
