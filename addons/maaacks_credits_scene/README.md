@@ -69,10 +69,6 @@ Users that want additional features can try [Maaack's Game Template](https://git
 
 ## Usage
 
-Changes can be made directly to scenes and scripts outside of `addons/`. 
-
-A copy of the `examples/` directory is made outside of `addons/` when the plugin is enabled for the first time. However, if this is skipped, it is recommended developers inherit from scenes they want to use, and save the inherited scene outside of `addons/`. This avoids changes getting lost either from the package updating, or because of a `.gitignore`.
-
 ### Existing Project
 
 [Existing Project Instructions](/addons/maaacks_credits_scene/docs/ExistingProject.md)  
