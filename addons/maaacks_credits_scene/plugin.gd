@@ -37,22 +37,47 @@ static func get_copy_path() -> String:
 		copy_path += "/"
 	return copy_path
 
-func _open_play_opening_confirmation_dialog(target_path : String):
+func _on_visibility_changed_to_hidden(dialog_window : Window) -> void:
+	if dialog_window and dialog_window.is_inside_tree() and not dialog_window.visible:
+		dialog_window.queue_free()
+
+func open_setup_complete_dialog(_target_path : String) -> void:
+	var setup_complete_scene : PackedScene = load(get_plugin_path() + "installer/setup_complete_dialog.tscn")
+	var setup_complete_instance : AcceptDialog = setup_complete_scene.instantiate()
+	setup_complete_instance.visibility_changed.connect(_on_visibility_changed_to_hidden.bind(setup_complete_instance))
+	add_child(setup_complete_instance)
+
+func _delayed_open_setup_complete_dialog(target_path : String) -> void:
+	var timer: Timer = Timer.new()
+	var callable := func():
+		timer.stop()
+		open_setup_complete_dialog(target_path)
+		timer.queue_free()
+	timer.timeout.connect(callable)
+	add_child(timer)
+	timer.start(WINDOW_OPEN_DELAY)
+
+func _open_play_opening_confirmation_dialog(target_path : String) -> void:
 	var play_confirmation_scene : PackedScene = load(get_plugin_path() + "installer/play_opening_confirmation_dialog.tscn")
 	var play_confirmation_instance : ConfirmationDialog = play_confirmation_scene.instantiate()
 	play_confirmation_instance.confirmed.connect(_run_opening_scene.bind(target_path))
+	play_confirmation_instance.canceled.connect(_delayed_open_setup_complete_dialog.bind(target_path))
+	play_confirmation_instance.visibility_changed.connect(_on_visibility_changed_to_hidden.bind(play_confirmation_instance))
 	add_child(play_confirmation_instance)
 
 func _open_delete_examples_confirmation_dialog(target_path : String) -> void:
 	var delete_confirmation_scene : PackedScene = load(get_plugin_path() + "installer/delete_examples_confirmation_dialog.tscn")
 	var delete_confirmation_instance : ConfirmationDialog = delete_confirmation_scene.instantiate()
 	delete_confirmation_instance.confirmed.connect(_delete_source_examples_directory.bind(target_path))
+	delete_confirmation_instance.canceled.connect(_delayed_open_setup_complete_dialog.bind(target_path))
+	delete_confirmation_instance.visibility_changed.connect(_on_visibility_changed_to_hidden.bind(delete_confirmation_instance))
 	add_child(delete_confirmation_instance)
 
 func open_delete_examples_short_confirmation_dialog() -> void:
 	var delete_confirmation_scene : PackedScene = load(get_plugin_path() + "installer/delete_examples_short_confirmation_dialog.tscn")
 	var delete_confirmation_instance : ConfirmationDialog = delete_confirmation_scene.instantiate()
 	delete_confirmation_instance.confirmed.connect(_delete_source_examples_directory)
+	delete_confirmation_instance.visibility_changed.connect(_on_visibility_changed_to_hidden.bind(delete_confirmation_instance))
 	add_child(delete_confirmation_instance)
 
 func _run_opening_scene(target_path : String) -> void:
@@ -96,6 +121,8 @@ func _delete_source_examples_directory(target_path : String = "") -> void:
 	if dir.dir_exists(examples_path):
 		_delete_directory_recursive(examples_path)
 		EditorInterface.get_resource_filesystem().scan()
+	if not target_path.is_empty():
+		_delayed_open_setup_complete_dialog(target_path)
 
 func _on_completed_copy_to_directory(target_path : String) -> void:
 	ProjectSettings.set_setting(PROJECT_SETTINGS_PATH + "copy_path", target_path)
