@@ -2,12 +2,13 @@
 class_name MaaacksCreditsScenePlugin
 extends EditorPlugin
 
+const PLUGIN_PATH = "res://addons/maaacks_credits_scene/"
+const PLUGIN_NAME = "Maaack's Credits Scene"
+const PROJECT_SETTINGS_PATH = "maaacks_credits_scene/"
+
 const APIClient = preload("res://addons/maaacks_credits_scene/utilities/api_client.gd")
 const DownloadAndExtract = preload("res://addons/maaacks_credits_scene/utilities/download_and_extract.gd")
 const CopyAndEdit = preload("res://addons/maaacks_credits_scene/installer/copy_and_edit_files.gd")
-
-const PLUGIN_NAME = "Maaack's Credits Scene"
-const PROJECT_SETTINGS_PATH = "maaacks_credits_scene/"
 
 const EXAMPLES_RELATIVE_PATH = "examples/"
 const MAIN_SCENE_RELATIVE_PATH = "scenes/end_credits/end_credits.tscn"
@@ -24,13 +25,13 @@ static func get_plugin_name() -> String:
 static func get_settings_path() -> String:
 	return PROJECT_SETTINGS_PATH
 
-func get_plugin_path() -> String:
-	return get_script().resource_path.get_base_dir() + "/"
+static func get_plugin_path() -> String:
+	return PLUGIN_PATH
 
-func get_plugin_examples_path() -> String:
+static func get_plugin_examples_path() -> String:
 	return get_plugin_path() + EXAMPLES_RELATIVE_PATH
 
-func get_copy_path() -> String:
+static func get_copy_path() -> String:
 	var copy_path = ProjectSettings.get_setting(PROJECT_SETTINGS_PATH + "copy_path", get_plugin_examples_path())
 	if not copy_path.ends_with("/"):
 		copy_path += "/"
