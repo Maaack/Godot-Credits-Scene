@@ -1,5 +1,5 @@
 # Godot Credits Scene
-For Godot 4.4 (4.3+ compatible)
+For Godot 4.5 (4.3+ compatible)
 
 This credits scene scrolls text that is read from an attribution file in a markdown (`.md`) format.
 
@@ -81,10 +81,10 @@ Users that want additional features can try [Maaack's Game Template](https://git
 
 ## Featured Games
 
-| Spud Customs | Rent Seek Kill  | A Darkness Like Gravity  |  
+| Baking Godium | Spud Customs | Rent Seek Kill |  
 | :-------:| :-------: | :-------: |
-![Spud Customs](/addons/maaacks_credits_scene/media/thumbnail-game-spud-customs.png)  |  ![Rent-Seek-Kill](/addons/maaacks_credits_scene/media/thumbnail-game-rent-seek-kill.png)  |  ![A Darkness Like Gravity](/addons/maaacks_credits_scene/media/thumbnail-game-a-darkness-like-gravity.png)  |
-[Find on Steam](https://store.steampowered.com/app/3291880/Spud_Customs/) | [Play on itch.io](https://xandruher.itch.io/rent-seek-kill)  |  [Play on itch.io](https://maaack.itch.io/a-darkness-like-gravity)  |
+| ![Baking Godium](/addons/maaacks_credits_scene/media/thumbnail-game-baking-godium.png) | ![Spud Customs](/addons/maaacks_credits_scene/media/thumbnail-game-spud-customs.png) | ![Rent-Seek-Kill](/addons/maaacks_credits_scene/media/thumbnail-game-rent-seek-kill.png) |
+|  [Play on itch.io](https://maaack.itch.io/baking-godium) | [Find on Steam](https://store.steampowered.com/app/3291880/Spud_Customs/) | [Play on itch.io](https://xandruher.itch.io/rent-seek-kill)  |
 
 
 [All Shared Games](/addons/maaacks_credits_scene/docs/GamesMade.md)  

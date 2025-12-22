@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://coq26stqrim51" path="res://addons/maaacks_credits_scene/installer/setup_wizard.gd" id="1_jck5m"]
 
 [node name="SetupWizardDialog" type="AcceptDialog"]
+oversampling_override = 1.0
 title = "Setup Wizard"
 initial_position = 2
 size = Vector2i(576, 540)
@@ -29,7 +30,6 @@ theme_override_constants/separation = 16
 unique_name_in_owner = true
 custom_minimum_size = Vector2(384, 0)
 layout_mode = 2
-text = "Maaack's Credits Scene v1.2.0"
 autowrap_mode = 3
 
 [node name="HSeparator" type="HSeparator" parent="VBoxContainer"]
@@ -45,7 +45,7 @@ columns = 3
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Update to Latest Version v1.1.4"
+text = "Update to Latest Version"
 
 [node name="UpdateCheckBox" type="CheckBox" parent="VBoxContainer/StepsContainer"]
 unique_name_in_owner = true
@@ -56,6 +56,7 @@ disabled = true
 unique_name_in_owner = true
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
+disabled = true
 text = "Run"
 
 [node name="CopyLabel" type="Label" parent="VBoxContainer/StepsContainer"]
@@ -67,12 +68,12 @@ text = "Copy Example Files"
 unique_name_in_owner = true
 layout_mode = 2
 disabled = true
-button_pressed = true
 
 [node name="CopyButton" type="Button" parent="VBoxContainer/StepsContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
+disabled = true
 text = "Run"
 
 [node name="DeleteLabel" type="Label" parent="VBoxContainer/StepsContainer"]

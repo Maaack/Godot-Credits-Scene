@@ -1,5 +1,6 @@
 @tool
 extends Node
+## Script for automatically copying Godot scenes and scripts without UIDs.
 
 signal canceled
 signal completed(target_path : String)
@@ -32,7 +33,6 @@ func hide() -> void:
 	visible = false
 
 func close() -> void:
-	if Engine.is_editor_hint(): return
 	queue_free()
 
 func _remove_uids(content : String) -> String:
