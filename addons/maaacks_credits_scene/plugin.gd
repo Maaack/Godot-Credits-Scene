@@ -47,15 +47,18 @@ func open_setup_complete_dialog(_target_path : String) -> void:
 	setup_complete_instance.visibility_changed.connect(_on_visibility_changed_to_hidden.bind(setup_complete_instance))
 	add_child(setup_complete_instance)
 
-func _delayed_open_setup_complete_dialog(target_path : String) -> void:
+func _delayed_call_with_path(callable : Callable, target_path : String) -> void:
 	var timer: Timer = Timer.new()
-	var callable := func():
+	var timer_callable := func():
 		timer.stop()
-		open_setup_complete_dialog(target_path)
+		callable.call(target_path)
 		timer.queue_free()
-	timer.timeout.connect(callable)
+	timer.timeout.connect(timer_callable)
 	add_child(timer)
 	timer.start(WINDOW_OPEN_DELAY)
+
+func _delayed_open_setup_complete_dialog(target_path : String) -> void:
+	_delayed_call_with_path(open_setup_complete_dialog, target_path)
 
 func _open_play_opening_confirmation_dialog(target_path : String) -> void:
 	var play_confirmation_scene : PackedScene = load(get_plugin_path() + "installer/play_opening_confirmation_dialog.tscn")
@@ -87,7 +90,7 @@ func _run_opening_scene(target_path : String) -> void:
 	var callable := func() -> void:
 		if EditorInterface.is_playing_scene(): return
 		timer.stop()
-		_open_delete_examples_confirmation_dialog(target_path)
+		_delayed_call_with_path(_open_delete_examples_confirmation_dialog, target_path)
 		timer.queue_free()
 	timer.timeout.connect(callable)
 	add_child(timer)
@@ -129,6 +132,19 @@ func _on_completed_copy_to_directory(target_path : String) -> void:
 	ProjectSettings.save()
 	_open_play_opening_confirmation_dialog(target_path)
 
+func are_examples_deleted() -> bool:
+	var dir := DirAccess.open("res://")
+	return not dir.dir_exists(get_plugin_examples_path())
+
+func is_partially_installed() -> bool:
+	var copy_path : String = ProjectSettings.get_setting(PROJECT_SETTINGS_PATH + "copy_path")
+	if copy_path.is_empty():
+		# Installation not started
+		return false
+	if not are_examples_deleted():
+		return true
+	return false
+
 func open_copy_and_edit_dialog() -> void:
 	var copy_and_edit_scene : PackedScene = load(get_plugin_path() + "installer/copy_and_edit_files.tscn")
 	var copy_and_edit_instance : CopyAndEdit = copy_and_edit_scene.instantiate()
@@ -139,6 +155,14 @@ func _open_confirmation_dialog() -> void:
 	var confirmation_scene : PackedScene = load(get_plugin_path() + "installer/copy_confirmation_dialog.tscn")
 	var confirmation_instance : ConfirmationDialog = confirmation_scene.instantiate()
 	confirmation_instance.confirmed.connect(open_copy_and_edit_dialog)
+	confirmation_instance.visibility_changed.connect(_on_visibility_changed_to_hidden.bind(confirmation_instance))
+	add_child(confirmation_instance)
+
+func _open_continue_setup_dialog() -> void:
+	var confirmation_scene : PackedScene = load(get_plugin_path() + "installer/continue_setup_confirmation_dialog.tscn")
+	var confirmation_instance : ConfirmationDialog = confirmation_scene.instantiate()
+	confirmation_instance.confirmed.connect(open_setup_wizard)
+	confirmation_instance.visibility_changed.connect(_on_visibility_changed_to_hidden.bind(confirmation_instance))
 	add_child(confirmation_instance)
 
 func _open_check_plugin_version() -> void:
@@ -176,12 +200,14 @@ func _remove_update_plugin_tool_option() -> void:
 	update_plugin_tool_string = ""
 
 func _show_plugin_dialogues() -> void:
-	if ProjectSettings.has_setting(PROJECT_SETTINGS_PATH + "disable_install_wizard") :
-		if ProjectSettings.get_setting(PROJECT_SETTINGS_PATH + "disable_install_wizard") :
-			return
-	_open_confirmation_dialog()
-	ProjectSettings.set_setting(PROJECT_SETTINGS_PATH + "disable_install_wizard", true)
-	ProjectSettings.save()
+	if not ProjectSettings.get_setting(PROJECT_SETTINGS_PATH + "disable_install_wizard", false):
+		_open_confirmation_dialog()
+		ProjectSettings.set_setting(PROJECT_SETTINGS_PATH + "disable_install_wizard", true)
+		ProjectSettings.save()
+		return
+	if is_partially_installed():
+		_open_continue_setup_dialog()
+		return
 
 func _add_tool_options() -> void:
 	add_tool_menu_item("Run " + get_plugin_name() + " Setup...", open_setup_wizard)
