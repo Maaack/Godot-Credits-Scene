@@ -1,8 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://b0o5hpukdt644"]
+[gd_scene format=3 uid="uid://b0o5hpukdt644"]
 
 [ext_resource type="Script" uid="uid://cc2wtqasev7le" path="res://addons/maaacks_credits_scene/base/nodes/labels/credits_label.gd" id="1_mkjgh"]
 
-[node name="CreditsLabel" type="RichTextLabel"]
+[node name="CreditsLabel" type="RichTextLabel" unique_id=936615440]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
