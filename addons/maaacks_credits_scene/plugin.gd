@@ -149,7 +149,6 @@ func open_copy_and_edit_dialog() -> void:
 	var copy_and_edit_scene : PackedScene = load(get_plugin_path() + "installer/copy_and_edit_files.tscn")
 	var copy_and_edit_instance : CopyAndEdit = copy_and_edit_scene.instantiate()
 	copy_and_edit_instance.completed.connect(_on_completed_copy_to_directory)
-	copy_and_edit_instance.visibility_changed.connect(_on_visibility_changed_to_hidden.bind(copy_and_edit_instance))
 	add_child(copy_and_edit_instance)
 
 func _open_confirmation_dialog() -> void:
