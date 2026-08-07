@@ -1,5 +1,5 @@
 extends Control
-## Node that captures UI focus for games with a hidden mouse or joypad enabled.
+## Node that captures UI focus when switching menus.
 ##
 ## This script assists with capturing UI focus when
 ## opening, closing, or switching between menus.
@@ -7,11 +7,15 @@ extends Control
 ## and if it should grab focus. If both are true, it will capture focus
 ## on the first eligible node in its scene tree.
 
-## Hierarchical depth to search in the scene tree.
+## Hierarchical depth to search in the scene tree for a focusable control node.
 @export var search_depth : int = 1
+## If true, always capture focus when made visible.
 @export var enabled : bool = false
+## If true, capture focus if nothing currently is in focus.
 @export var null_focus_enabled : bool = true
+## If true, capture focus if there is a joypad detected.
 @export var joypad_enabled : bool = true
+## If true, capture focus if the mouse is hidden.
 @export var mouse_hidden_enabled : bool = true
 
 ## Locks focus
@@ -47,10 +51,10 @@ func update_focus() -> void:
 		focus_first()
 
 func _should_capture_focus() -> bool:
-	return enabled or \
-	(get_viewport().gui_get_focus_owner() == null and null_focus_enabled) or \
-	(Input.get_connected_joypads().size() > 0 and joypad_enabled) or \
-	(Input.mouse_mode not in [Input.MOUSE_MODE_VISIBLE, Input.MOUSE_MODE_CONFINED] and mouse_hidden_enabled)
+	var _null_focus := get_viewport().gui_get_focus_owner() == null and null_focus_enabled
+	var _joypad_detected := Input.get_connected_joypads().size() > 0 and joypad_enabled
+	var _mouse_hidden := Input.mouse_mode not in [Input.MOUSE_MODE_VISIBLE, Input.MOUSE_MODE_CONFINED] and mouse_hidden_enabled
+	return enabled or _null_focus or _joypad_detected or _mouse_hidden
 
 func _is_visible_and_should_capture() -> bool:
 	return is_visible_in_tree() and _should_capture_focus()
