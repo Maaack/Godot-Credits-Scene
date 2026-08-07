@@ -1,5 +1,5 @@
 # Godot Credits Scene
-For Godot 4.5 (4.3+ compatible)
+For Godot 4.7 (4.3+ compatible)
 
 This credits scene scrolls text that is read from an attribution file in a markdown (`.md`) format.
 
@@ -31,14 +31,14 @@ For adding scrolling credits to your scenes that can auto-update from a project'
 
 ## Installation
 
-### Godot Asset Library
+### Godot Asset Store & Library
 This package is available as a plugin, meaning it can be added to an existing project. 
 
 ![Package Icon](/addons/maaacks_credits_scene/media/credits_scene-icon-black-transparent-256x256.png)  
 
 When editing an existing project:
 
-1.  Go to the `AssetLib` tab.
+1.  Go to the `Asset Store` tab.
 2.  Search for "Maaack's Credits Scene".
 3.  Click on the result to open the plugin details.
 4.  Click to Download.
@@ -69,10 +69,10 @@ Users that want additional features can try [Maaack's Game Template](https://git
 
 ## Usage
 
-### Existing Project
+[Basic Setup](/addons/maaacks_credits_scene/docs/BasicSetup.md) is done through the _Setup Wizard_ at `Project > Tools > Run Maaack's Credits Scene Setup...`.
 
-[Existing Project Instructions](/addons/maaacks_credits_scene/docs/ExistingProject.md)  
-
+As part of setup, example scenes are copied out of `/addons/` into a desired folder (project root by default). These can be edited to fit requirements.
+   
 ### More Documentation
 
 [Automatic Updating](/addons/maaacks_credits_scene/docs/AutomaticUpdating.md)  
@@ -81,10 +81,10 @@ Users that want additional features can try [Maaack's Game Template](https://git
 
 ## Featured Games
 
-| Baking Godium | Spud Customs | Rent Seek Kill |  
+| HeartFix Express | Baking Godium | Rent Seek Kill |  
 | :-------:| :-------: | :-------: |
-| ![Baking Godium](/addons/maaacks_credits_scene/media/thumbnail-game-baking-godium.png) | ![Spud Customs](/addons/maaacks_credits_scene/media/thumbnail-game-spud-customs.png) | ![Rent-Seek-Kill](/addons/maaacks_credits_scene/media/thumbnail-game-rent-seek-kill.png) |
-|  [Play on itch.io](https://maaack.itch.io/baking-godium) | [Find on Steam](https://store.steampowered.com/app/3291880/Spud_Customs/) | [Play on itch.io](https://xandruher.itch.io/rent-seek-kill)  |
+| ![HeartFix Express](/addons/maaacks_credits_scene/media/thumbnail-game-heartfix-express.png) | ![Baking Godium](/addons/maaacks_credits_scene/media/thumbnail-game-baking-godium.png) | ![Rent-Seek-Kill](/addons/maaacks_credits_scene/media/thumbnail-game-rent-seek-kill.png) |
+|  [Find on Steam](https://store.steampowered.com/app/3983290/HeartFix_Express_Demo/)  | [Play on itch.io](https://maaack.itch.io/baking-godium) | [Play on itch.io](https://xandruher.itch.io/rent-seek-kill)  |
 
 
 [All Shared Games](/addons/maaacks_credits_scene/docs/GamesMade.md)  
@@ -98,4 +98,5 @@ Join the [Discord server](https://discord.gg/AyZrJh5AMp ) and share your work wi
 ## Links
 [Attribution](/addons/maaacks_credits_scene/ATTRIBUTION.md)  
 [License](/addons/maaacks_credits_scene/LICENSE.txt)  
+[Godot Asset Store](https://store.godotengine.org/asset/maaack/maaacks-credits-scene/)  
 [Godot Asset Library](https://godotengine.org/asset-library/asset/2932)  
