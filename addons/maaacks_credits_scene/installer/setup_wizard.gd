@@ -1,8 +1,6 @@
 @tool
 extends AcceptDialog
 
-@export_file("*.tscn") var check_version_scene_path : String
-
 @onready var plugin_label : Label = %PluginLabel
 @onready var update_label : Label  = %UpdateLabel
 @onready var update_check_box : CheckBox = %UpdateCheckBox
@@ -29,23 +27,21 @@ func _show_plugin_versions_match() -> void:
 	update_button.disabled = true
 
 func _enable_update_plugin_tool_option(tag_name : String) -> void:
-	update_label.text = "Update to Latest Version v%s" % tag_name
+	update_label.text = "Update to Latest Version %s" % tag_name
 	update_button.disabled = false
 
 func _open_check_plugin_version() -> void:
-	if check_version_scene_path.is_empty():
-		push_warning("Variable \"check_version_scene_path\" is not set")
-		return
 	if ProjectSettings.get_setting(MaaacksCreditsScenePlugin.get_settings_path() + "disable_update_check", false):
 		update_label.text = "Check for Latest Version"
 		update_button.disabled = false
 		return
-	var check_version_scene : PackedScene = load(check_version_scene_path)
-	var check_version_instance : Node = check_version_scene.instantiate()
-	check_version_instance.auto_start = true
+	var check_version_instance := PluginUpdater.instance.get_check_plugin_version(MaaacksCreditsScenePlugin.instance.get_plugin_path(), MaaacksCreditsScenePlugin.PLUGIN_REPO_URL)
+	add_child(check_version_instance)
 	check_version_instance.new_version_detected.connect(_enable_update_plugin_tool_option)
 	check_version_instance.versions_matched.connect(_show_plugin_versions_match)
-	add_child(check_version_instance)
+	check_version_instance.compare_versions()
+	await check_version_instance.done
+	check_version_instance.queue_free()
 
 func _refresh_copy_and_delete_examples() -> void:
 	var examples_path = MaaacksCreditsScenePlugin.instance.get_plugin_examples_path()
@@ -72,7 +68,7 @@ func _on_update_button_pressed():
 		_open_check_plugin_version()
 		return
 	else:
-		tree_exited.connect(func(): MaaacksCreditsScenePlugin.instance.open_update_plugin())
+		tree_exited.connect(func(): PluginUpdater.instance.open_update_plugin(MaaacksCreditsScenePlugin.instance.get_plugin_path(), MaaacksCreditsScenePlugin.PLUGIN_REPO_URL))
 		queue_free()
 
 func _on_copy_button_pressed():
