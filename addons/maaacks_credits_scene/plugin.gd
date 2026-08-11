@@ -6,15 +6,11 @@ const PLUGIN_PATH = "res://addons/maaacks_credits_scene/"
 const PLUGIN_NAME = "Maaack's Credits Scene"
 const PROJECT_SETTINGS_PATH = "maaacks_credits_scene/"
 const PLUGIN_REPO_URL = "https://github.com/Maaack/Godot-Credits-Scene"
-
-const APIClient = preload("res://addons/maaacks_credits_scene/utilities/api_client.gd")
-const DownloadAndExtract = preload("res://addons/maaacks_credits_scene/utilities/download_and_extract.gd")
-const CopyAndEdit = preload("res://addons/maaacks_credits_scene/installer/copy_and_edit_files.gd")
-
 const EXAMPLES_RELATIVE_PATH = "examples/"
 const MAIN_SCENE_RELATIVE_PATH = "scenes/end_credits/end_credits.tscn"
 const WINDOW_OPEN_DELAY : float = 0.5
 const RUNNING_CHECK_DELAY : float = 0.25
+const CopyAndEdit = preload("res://addons/maaacks_credits_scene/installer/copy_and_edit_files.gd")
 
 static var instance : MaaacksCreditsScenePlugin
 
