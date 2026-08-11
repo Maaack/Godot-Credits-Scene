@@ -1,10 +1,21 @@
 # Godot Credits Scene
-For Godot 4.7 (4.3+ compatible)
+![GitHub commit activity](https://img.shields.io/github/commit-activity/m/Maaack/Godot-Credits-Scene)
+![GitHub Release Date](https://img.shields.io/github/release-date/Maaack/Godot-Credits-Scene)
+[![Discord members](https://img.shields.io/discord/772191827570720798.svg?label=&logo=discord&logoColor=ffffff)](https://discord.gg/AyZrJh5AMp)  
 
 This credits scene scrolls text that is read from an attribution file in a markdown (`.md`) format.
 
+For Godot 4.7 (4.3+ compatible)
+
 [Example on itch.io](https://maaack.itch.io/godot-game-template)  
 _Example is of [Maaack's Game Template](https://github.com/Maaack/Godot-Game-Template), which includes additional features._
+
+[Featured Games](#featured-games)  
+
+### Videos
+
+[![Quick Intro Video](https://img.youtube.com/vi/U9CB3vKINVw/hqdefault.jpg)](https://youtu.be/U9CB3vKINVw)  
+[More Videos](/addons/maaacks_credits_scene/docs/Videos.md)
 
 ### Screenshots
 
@@ -46,9 +57,9 @@ When editing an existing project:
 6.  Click to Install.
 7.  Reload the project (you may see errors before you do this).
 8.  Enable the plugin from the Project Settings > Plugins tab.  
-    If it's enabled for the first time,
-    1.  A dialogue window will appear asking to copy the example scenes out of `addons/`.
-9.  Continue with the [Existing Project Instructions](/addons/maaacks_credits_scene/docs/ExistingProject.md)  
+    1.  If it's enabled for the first time, the setup wizard will start.  
+    2.  Close the window behind it and complete the setup wizard.  
+9.  Continue with the [Basic Setup](/addons/maaacks_credits_scene/docs/BasicSetup.md)
 
 
 ### GitHub
@@ -59,9 +70,9 @@ When editing an existing project:
 3.  Move the `addons/maaacks_credits_scene` folder into your project's `addons/` folder.  
 4.  Open/Reload the project.  
 5.  Enable the plugin from the Project Settings > Plugins tab.  
-    If it's enabled for the first time,
-    1.  A dialogue window will appear asking to copy the example scenes out of `addons/`.
-6.  Continue with the [Existing Project Instructions](/addons/maaacks_credits_scene/docs/ExistingProject.md) 
+    1.  If it's enabled for the first time, the setup wizard will start.  
+    2.  Close the window behind it and complete the setup wizard.  
+6.  Continue with the [Basic Setup](/addons/maaacks_credits_scene/docs/BasicSetup.md)
 
 ### Extras or Components
 
@@ -72,7 +83,7 @@ Users that want additional features can try [Maaack's Game Template](https://git
 [Basic Setup](/addons/maaacks_credits_scene/docs/BasicSetup.md) is done through the _Setup Wizard_ at `Project > Tools > Run Maaack's Credits Scene Setup...`.
 
 As part of setup, example scenes are copied out of `/addons/` into a desired folder (project root by default). These can be edited to fit requirements.
-   
+
 ### More Documentation
 
 [Automatic Updating](/addons/maaacks_credits_scene/docs/AutomaticUpdating.md)  
@@ -92,8 +103,8 @@ As part of setup, example scenes are copied out of `/addons/` into a desired fol
 
 ## Community
 
-Join the [Discord server](https://discord.gg/AyZrJh5AMp ) and share your work with others. It's also a space for getting or giving feedback, and asking for help. 
- 
+Join the [Discord server](https://discord.gg/AyZrJh5AMp) and share your work with others. It's also a space for getting or giving feedback, and asking for help. 
+
 
 ## Links
 [Attribution](/addons/maaacks_credits_scene/ATTRIBUTION.md)  
