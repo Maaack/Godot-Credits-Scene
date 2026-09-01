@@ -181,18 +181,26 @@ func _remove_tool_options() -> void:
 	remove_tool_menu_item("Run " + get_plugin_name() + " Setup...")
 
 func _add_to_auto_update_list() -> void:
-	PluginUpdater.add_plugin(get_plugin_path(), PLUGIN_REPO_URL)
+	var plugin_repos:Dictionary = ProjectSettings.get_setting("plugin_updater/plugins", {})
+	plugin_repos[get_plugin_path()] = PLUGIN_REPO_URL
+	ProjectSettings.set_setting("plugin_updater/plugins", plugin_repos)
 
 func _remove_from_auto_update_list() -> void:
-	PluginUpdater.remove_plugin(get_plugin_path())
+	var plugin_repos:Dictionary = ProjectSettings.get_setting("plugin_updater/plugins", {})
+	plugin_repos.erase(get_plugin_path())
+	ProjectSettings.set_setting("plugin_updater/plugins", plugin_repos)
+
+func _enable_plugin():
+	_add_to_auto_update_list()
+
+func _disable_plugin():
+	_remove_from_auto_update_list()
 
 func _enter_tree() -> void:
 	_add_tool_options()
 	_show_plugin_dialogues()
-	_add_to_auto_update_list()
 	instance = self
 
 func _exit_tree() -> void:
 	_remove_tool_options()
-	_remove_from_auto_update_list()
 	instance = null
