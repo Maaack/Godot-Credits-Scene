@@ -2,9 +2,6 @@
 extends AcceptDialog
 
 @onready var plugin_label : Label = %PluginLabel
-@onready var update_label : Label  = %UpdateLabel
-@onready var update_check_box : CheckBox = %UpdateCheckBox
-@onready var update_button : Button = %UpdateButton
 @onready var copy_check_box : CheckBox = %CopyCheckBox
 @onready var copy_button : Button = %CopyButton
 @onready var delete_check_box : CheckBox = %DeleteCheckBox
@@ -21,28 +18,6 @@ func _refresh_plugin_details() -> void:
 			var plugin_name : String = config.get_value("plugin", "name", "Plugin")
 			plugin_label.text = "%s v%s" % [plugin_name, current_plugin_version]
 
-func _show_plugin_versions_match() -> void:
-	update_label.text = "Using Latest Version"
-	update_check_box.button_pressed = true
-	update_button.disabled = true
-
-func _enable_update_plugin_tool_option(tag_name : String) -> void:
-	update_label.text = "Update to Latest Version %s" % tag_name
-	update_button.disabled = false
-
-func _open_check_plugin_version() -> void:
-	if ProjectSettings.get_setting(MaaacksCreditsScenePlugin.get_settings_path() + "disable_update_check", false):
-		update_label.text = "Check for Latest Version"
-		update_button.disabled = false
-		return
-	var check_version_instance := PluginUpdater.instance.get_check_plugin_version(MaaacksCreditsScenePlugin.instance.get_plugin_path(), MaaacksCreditsScenePlugin.PLUGIN_REPO_URL)
-	add_child(check_version_instance)
-	check_version_instance.new_version_detected.connect(_enable_update_plugin_tool_option)
-	check_version_instance.versions_matched.connect(_show_plugin_versions_match)
-	check_version_instance.compare_versions()
-	await check_version_instance.done
-	check_version_instance.queue_free()
-
 func _refresh_copy_and_delete_examples() -> void:
 	var examples_path = MaaacksCreditsScenePlugin.instance.get_plugin_examples_path()
 	if MaaacksCreditsScenePlugin.instance.get_copy_path() != examples_path:
@@ -56,20 +31,10 @@ func _refresh_copy_and_delete_examples() -> void:
 
 func _refresh_options():
 	_refresh_plugin_details()
-	_open_check_plugin_version()
 	_refresh_copy_and_delete_examples()
 
 func _ready():
 	_refresh_options()
-
-func _on_update_button_pressed():
-	if ProjectSettings.get_setting(MaaacksCreditsScenePlugin.get_settings_path() + "disable_update_check", false):
-		ProjectSettings.set_setting(MaaacksCreditsScenePlugin.get_settings_path() + "disable_update_check", false)
-		_open_check_plugin_version()
-		return
-	else:
-		tree_exited.connect(func(): PluginUpdater.instance.open_update_plugin(MaaacksCreditsScenePlugin.instance.get_plugin_path(), MaaacksCreditsScenePlugin.PLUGIN_REPO_URL))
-		queue_free()
 
 func _on_copy_button_pressed():
 	tree_exited.connect(func(): MaaacksCreditsScenePlugin.instance.open_copy_and_edit_dialog())
