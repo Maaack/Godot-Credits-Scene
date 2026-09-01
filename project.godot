@@ -96,3 +96,9 @@ disable_install_wizard=true
 [physics]
 
 common/enable_pause_aware_picking=true
+
+[plugin_updater]
+
+plugins={
+"res://addons/maaacks_credits_scene/": "https://github.com/Maaack/Godot-Credits-Scene"
+}
