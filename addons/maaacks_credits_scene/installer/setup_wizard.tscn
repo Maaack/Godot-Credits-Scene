@@ -29,7 +29,6 @@ theme_override_constants/separation = 16
 unique_name_in_owner = true
 custom_minimum_size = Vector2(384, 0)
 layout_mode = 2
-text = "Maaack's Credits Scene v1.5.2"
 autowrap_mode = 3
 
 [node name="HSeparator" type="HSeparator" parent="VBoxContainer" unique_id=1949820163]
@@ -50,12 +49,12 @@ text = "Copy Example Files *"
 unique_name_in_owner = true
 layout_mode = 2
 disabled = true
-button_pressed = true
 
 [node name="CopyButton" type="Button" parent="VBoxContainer/StepsContainer" unique_id=156441406]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
+disabled = true
 text = "Run"
 
 [node name="DeleteLabel" type="Label" parent="VBoxContainer/StepsContainer" unique_id=522200139]
@@ -72,6 +71,7 @@ disabled = true
 unique_name_in_owner = true
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
+disabled = true
 text = "Run"
 
 [connection signal="pressed" from="VBoxContainer/StepsContainer/CopyButton" to="." method="_on_copy_button_pressed"]
