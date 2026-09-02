@@ -7,7 +7,7 @@
 
 This credits scene scrolls text that is read from an attribution file in a markdown (`.md`) format.
 
-For Godot 4.7 (4.3+ compatible)
+For *Godot 4.7* (4.3+ compatible)
 
 [Example on itch.io](https://maaack.itch.io/godot-game-template) of *[Maaack's Game Template](https://github.com/Maaack/Godot-Game-Template)*, which includes additional features.
 
@@ -17,7 +17,7 @@ For adding scrolling credits to your scenes that can auto-update from a project'
 
 ### Extras or Components
 
-Users that want additional features can try [Maaack's Game Template](https://github.com/Maaack/Godot-Game-Template) or other options from the [plugin suite](/addons/maaacks_credits_scene/docs/PluginSuite.md).  
+Users that want additional features can try *[Maaack's Game Template](https://github.com/Maaack/Godot-Minimal-Game-Template)* or other options from the [plugin suite](/addons/maaacks_credits_scene/docs/PluginSuite.md).  
 
 ## Installation
 
@@ -32,14 +32,14 @@ When editing an existing project:
 5.  Check that contents are getting installed to `addons/` and there are no conflicts.
 6.  Click to **Install**.
 7.  Reload the project (you may see errors before you do this).
-8.  Enable the plugin from the Project Settings > Plugins tab.  
+8.  Enable the plugin from the **Project > Project Settings > Plugins** tab.  
     1.  If it's enabled for the first time, the setup wizard will start.  
     2.  Close the window behind it and complete the setup wizard.  
 9.  Continue with the [Basic Setup](/addons/maaacks_credits_scene/docs/BasicSetup.md).
 
 ## Usage
 
-[Basic Setup](/addons/maaacks_credits_scene/docs/BasicSetup.md) is done through the _Setup Wizard_ at **Project > Tools > Run Maaack's Credits Scene Setup...**.
+[Basic Setup](/addons/maaacks_credits_scene/docs/BasicSetup.md) is done through the setup wizard at **Project > Tools > Run Maaack's Credits Scene Setup...**.  
 
 As part of setup, example scenes are copied out of `/addons/` into a desired folder (project root by default). These can be edited to fit requirements.
 
@@ -74,7 +74,6 @@ As part of setup, example scenes are copied out of `/addons/` into a desired fol
 ## Community
 
 Join the [Discord server](https://discord.gg/AyZrJh5AMp) and share your work with others. It's also a space for getting or giving feedback, and asking for help. 
-
 
 ## Links
 [Attribution](/addons/maaacks_credits_scene/ATTRIBUTION.md)  

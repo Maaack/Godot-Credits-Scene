@@ -11,6 +11,7 @@ visible = true
 ok_button_text = "Done"
 dialog_autowrap = true
 script = ExtResource("1_jck5m")
+issues_url = "https://github.com/Maaack/Godot-Credits-Scene/issues"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1877249738]
 custom_minimum_size = Vector2(560, 483)
@@ -74,5 +75,14 @@ layout_mode = 2
 disabled = true
 text = "Run"
 
+[node name="IssuesLink" type="RichTextLabel" parent="VBoxContainer" unique_id=1707267889]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+bbcode_enabled = true
+text = "[url=]Report an issue[/url]"
+scroll_active = false
+
 [connection signal="pressed" from="VBoxContainer/StepsContainer/CopyButton" to="." method="_on_copy_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/StepsContainer/DeleteButton" to="." method="_on_delete_button_pressed"]
+[connection signal="meta_clicked" from="VBoxContainer/IssuesLink" to="." method="_on_issues_link_meta_clicked"]
