@@ -2,22 +2,13 @@
 class_name MaaacksCreditsScenePlugin
 extends EditorPlugin
 
-const PLUGIN_NAME = "Maaack's Credits Scene"
-const PROJECT_SETTINGS_PATH = "maaacks_credits_scene/"
 const PLUGIN_REPO_URL = "https://github.com/Maaack/Godot-Credits-Scene"
 const EXAMPLES_RELATIVE_PATH = "examples/"
-const MAIN_SCENE_RELATIVE_PATH = "scenes/end_credits/end_credits.tscn"
 const WINDOW_OPEN_DELAY : float = 0.5
 const RUNNING_CHECK_DELAY : float = 0.25
-const CopyAndEdit = preload("res://addons/maaacks_credits_scene/installer/copy_and_edit_files.gd")
+const CopyAndEdit = preload("installer/copy_and_edit_files.gd")
 
 static var instance : MaaacksCreditsScenePlugin
-
-static func get_plugin_name() -> String:
-	return PLUGIN_NAME
-
-static func get_settings_path() -> String:
-	return PROJECT_SETTINGS_PATH
 
 func get_plugin_path() -> String:
 	return get_script().resource_path.get_base_dir() + "/"
@@ -26,10 +17,7 @@ func get_plugin_examples_path() -> String:
 	return get_plugin_path() + EXAMPLES_RELATIVE_PATH
 
 func get_copy_path() -> String:
-	var copy_path = ProjectSettings.get_setting(PROJECT_SETTINGS_PATH + "copy_path", get_plugin_examples_path())
-	if not copy_path.ends_with("/"):
-		copy_path += "/"
-	return copy_path
+	return MaaacksCreditsScene.get_copy_path(get_plugin_examples_path())
 
 func _on_visibility_changed_to_hidden(dialog_window : Window) -> void:
 	if dialog_window and dialog_window.is_inside_tree() and not dialog_window.visible:
@@ -71,14 +59,16 @@ func _open_delete_examples_confirmation_dialog(target_path : String) -> void:
 	add_child(delete_confirmation_instance)
 
 func open_delete_examples_short_confirmation_dialog() -> void:
+	var copy_path := get_copy_path()
 	var delete_confirmation_scene : PackedScene = load(get_plugin_path() + "installer/delete_examples_short_confirmation_dialog.tscn")
 	var delete_confirmation_instance : ConfirmationDialog = delete_confirmation_scene.instantiate()
-	delete_confirmation_instance.confirmed.connect(_delete_source_examples_directory)
+	delete_confirmation_instance.confirmed.connect(_delete_source_examples_directory.bind(copy_path))
+	delete_confirmation_instance.canceled.connect(_delayed_call_with_path.bind(open_setup_wizard, copy_path))
 	delete_confirmation_instance.visibility_changed.connect(_on_visibility_changed_to_hidden.bind(delete_confirmation_instance))
 	add_child(delete_confirmation_instance)
 
 func _run_opening_scene(target_path : String) -> void:
-	var opening_scene_path = target_path + MAIN_SCENE_RELATIVE_PATH
+	var opening_scene_path = target_path + MaaacksCreditsScene.get_main_scene_relative_path()
 	EditorInterface.play_custom_scene(opening_scene_path)
 	var timer: Timer = Timer.new()
 	var callable := func() -> void:
@@ -122,8 +112,7 @@ func _delete_source_examples_directory(target_path : String = "") -> void:
 		_delayed_open_setup_complete_dialog(target_path)
 
 func _on_completed_copy_to_directory(target_path : String) -> void:
-	ProjectSettings.set_setting(PROJECT_SETTINGS_PATH + "copy_path", target_path)
-	ProjectSettings.save()
+	MaaacksCreditsScene.set_copy_path(target_path)
 	_open_play_opening_confirmation_dialog(target_path)
 
 func are_examples_deleted() -> bool:
@@ -131,7 +120,7 @@ func are_examples_deleted() -> bool:
 	return not dir.dir_exists(get_plugin_examples_path())
 
 func is_partially_installed() -> bool:
-	var copy_path : String = ProjectSettings.get_setting(PROJECT_SETTINGS_PATH + "copy_path")
+	var copy_path : String = MaaacksCreditsScene.get_copy_path()
 	if copy_path.is_empty():
 		# Installation not started
 		return false
@@ -159,15 +148,16 @@ func _open_continue_setup_dialog() -> void:
 	confirmation_instance.visibility_changed.connect(_on_visibility_changed_to_hidden.bind(confirmation_instance))
 	add_child(confirmation_instance)
 
-func open_setup_wizard() -> void:
+func open_setup_wizard(_target_path: String = "") -> void:
 	var setup_wizard_scene : PackedScene = load(get_plugin_path() + "installer/setup_wizard.tscn")
 	var setup_wizard_instance : Node = setup_wizard_scene.instantiate()
 	add_child(setup_wizard_instance)
 
 func _show_plugin_dialogues() -> void:
-	if not ProjectSettings.get_setting(PROJECT_SETTINGS_PATH + "disable_install_wizard", false):
+	var setting_key := MaaacksCreditsScene.get_settings_path() + "disable_install_wizard"
+	if not ProjectSettings.get_setting(setting_key, false):
 		_open_confirmation_dialog()
-		ProjectSettings.set_setting(PROJECT_SETTINGS_PATH + "disable_install_wizard", true)
+		ProjectSettings.set_setting(setting_key, true)
 		ProjectSettings.save()
 		return
 	if is_partially_installed():
@@ -175,10 +165,10 @@ func _show_plugin_dialogues() -> void:
 		return
 
 func _add_tool_options() -> void:
-	add_tool_menu_item("Run " + get_plugin_name() + " Setup...", open_setup_wizard)
+	add_tool_menu_item("Run " + MaaacksCreditsScene.get_plugin_name() + " Setup...", open_setup_wizard)
 
 func _remove_tool_options() -> void:
-	remove_tool_menu_item("Run " + get_plugin_name() + " Setup...")
+	remove_tool_menu_item("Run " + MaaacksCreditsScene.get_plugin_name() + " Setup...")
 
 func _add_to_auto_update_list() -> void:
 	var plugin_repos:Dictionary = ProjectSettings.get_setting("plugin_updater/plugins", {})

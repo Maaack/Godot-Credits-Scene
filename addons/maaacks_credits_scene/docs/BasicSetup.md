@@ -15,7 +15,6 @@ Open the _Setup Wizard_ by navigating to `Project > Tools > Run Maaack's Credits
 ### Check & Complete
 
 A typical full installation will have the following steps completed:  
--  Using Latest Version
 -  Copy Example Files
 -  Delete Example Files
 
