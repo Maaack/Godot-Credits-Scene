@@ -15,6 +15,8 @@ For *Godot 4.7* (4.3+ compatible)
 
 For adding scrolling credits to your scenes that can auto-update from a project's `ATTRIBUTION.md`, `CONTRIBUTORS.md`, or similar attribution markdown file.
 
+This addon was originally made for Godot Wild Jam, and shares a no AI/LLM-gen policy. Please open an [issue](https://github.com/Maaack/Godot-Credits-Scene/issues) if there is a violation.  
+
 ### Extras or Components
 
 Users that want additional features can try *[Maaack's Game Template](https://github.com/Maaack/Godot-Minimal-Game-Template)* or other options from the [plugin suite](/addons/maaacks_credits_scene/docs/PluginSuite.md).  
@@ -62,11 +64,10 @@ As part of setup, example scenes are copied out of `/addons/` into a desired fol
 
 ## Featured Games
 
-| HeartFix Express | Baking Godium | Rent Seek Kill |  
+| Crumbling Castle | Dungeon Bodega Simulator | Lucky Break |  
 | :-------:| :-------: | :-------: |
-| ![HeartFix Express](/addons/maaacks_credits_scene/media/thumbnail-game-heartfix-express.png) | ![Baking Godium](/addons/maaacks_credits_scene/media/thumbnail-game-baking-godium.png) | ![Rent-Seek-Kill](/addons/maaacks_credits_scene/media/thumbnail-game-rent-seek-kill.png) |
-|  [Find on Steam](https://store.steampowered.com/app/3983290/HeartFix_Express_Demo/)  | [Play on itch.io](https://maaack.itch.io/baking-godium) | [Play on itch.io](https://xandruher.itch.io/rent-seek-kill)  |
-
+| ![Crumbling Castle](/addons/maaacks_credits_scene/media/thumbnail-game-crumbling-castle.png) | ![Dungeon Bodega Simulator](/addons/maaacks_credits_scene/media/thumbnail-game-dungeon-bodega-simulator.png) | ![Lucky Break](/addons/maaacks_credits_scene/media/thumbnail-game-lucky-break.png) |
+| [Play on itch.io](https://maaack.itch.io/crumbling-castle) |  [Find on Steam](https://store.steampowered.com/app/3458180/Dungeon_Bodega_Simulator/)  | [Play on Steam](https://store.steampowered.com/app/4155880/Lucky_Break/)  |
 
 [All Shared Games](/addons/maaacks_credits_scene/docs/GamesMade.md)  
 

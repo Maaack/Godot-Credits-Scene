@@ -23,13 +23,14 @@ func _refresh_plugin_details() -> void:
 			plugin_label.text = "%s v%s" % [plugin_name, current_plugin_version]
 
 func _refresh_copy_and_delete_examples() -> void:
-	var examples_path = MaaacksCreditsScenePlugin.instance.get_plugin_examples_path()
-	if MaaacksCreditsScenePlugin.instance.get_copy_path() != examples_path:
+	var are_copied := CleanCopyExamples.are_examples_copied()
+	var are_deleted := CleanCopyExamples.are_all_examples_deleted()
+	if are_copied:
 		copy_check_box.button_pressed = true
-	var dir := DirAccess.open("res://")
-	if dir.dir_exists(examples_path):
+	if not are_deleted:
 		copy_button.disabled = false
-		delete_button.disabled = false
+		if are_copied:
+			delete_button.disabled = false
 	else:
 		delete_check_box.button_pressed = true
 
@@ -45,7 +46,7 @@ func _ready():
 	_refresh_options()
 
 func _on_copy_button_pressed():
-	tree_exited.connect(func(): MaaacksCreditsScenePlugin.instance.open_copy_and_edit_dialog())
+	tree_exited.connect(func(): MaaacksCreditsScenePlugin.instance.open_copy_and_clean_files_dialog())
 	queue_free()
 
 func _on_delete_button_pressed():
