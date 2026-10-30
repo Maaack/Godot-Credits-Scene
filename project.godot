@@ -15,6 +15,10 @@ run/main_scene="res://scenes/end_credits/end_credits.tscn"
 config/features=PackedStringArray("4.7")
 config/icon="res://icon.png"
 
+[clean_copy_examples]
+
+examples_paths=Array[String](["res://addons/maaacks_credits_scene/examples/"])
+
 [display]
 
 window/size/viewport_width=1280
