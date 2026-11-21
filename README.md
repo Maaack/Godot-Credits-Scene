@@ -13,7 +13,7 @@ For *Godot 4.7* (4.3+ compatible)
 
 ## Objective
 
-For adding scrolling credits to your scenes that can auto-update from a project's `ATTRIBUTION.md`, `CONTRIBUTORS.md`, or similar attribution markdown file.
+Add scrolling credits to your scenes that can auto-update from a project's `ATTRIBUTION.md`, `CONTRIBUTORS.md`, or similar attribution markdown file.
 
 This addon was originally made for Godot Wild Jam, and shares a no AI/LLM-gen policy. Please open an [issue](https://github.com/Maaack/Godot-Credits-Scene/issues) if there is a violation.  
 
