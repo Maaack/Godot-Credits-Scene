@@ -1,4 +1,4 @@
-![Package Icon](/addons/maaacks_credits_scene/media/credits_scene-icon-black-transparent-256x256.png)  
+![Package Icon](/media/credits_scene-icon-black-transparent-256x256.png)  
 
 # Godot Credits Scene
 ![GitHub commit activity](https://img.shields.io/github/commit-activity/m/Maaack/Godot-Credits-Scene)
@@ -13,13 +13,13 @@ For *Godot 4.7* (4.3+ compatible)
 
 ## Objective
 
-For adding scrolling credits to your scenes that can auto-update from a project's `ATTRIBUTION.md`, `CONTRIBUTORS.md`, or similar attribution markdown file.
+Add scrolling credits to your scenes that can auto-update from a project's `ATTRIBUTION.md`, `CONTRIBUTORS.md`, or similar attribution markdown file.
 
 This addon was originally made for Godot Wild Jam, and shares a no AI/LLM-gen policy. Please open an [issue](https://github.com/Maaack/Godot-Credits-Scene/issues) if there is a violation.  
 
 ### Extras or Components
 
-Users that want additional features can try *[Maaack's Game Template](https://github.com/Maaack/Godot-Minimal-Game-Template)* or other options from the [plugin suite](/addons/maaacks_credits_scene/docs/PluginSuite.md).  
+Users that want additional features can try *[Maaack's Game Template](https://github.com/Maaack/Godot-Minimal-Game-Template)* or other options from the [plugin suite](/docs/PluginSuite.md).  
 
 ## Installation
 
@@ -37,39 +37,39 @@ When editing an existing project:
 8.  Enable the plugin from the **Project > Project Settings > Plugins** tab.  
     1.  If it's enabled for the first time, the setup wizard will start.  
     2.  Close the window behind it and complete the setup wizard.  
-9.  Continue with the [Basic Setup](/addons/maaacks_credits_scene/docs/BasicSetup.md).
+9.  Continue with the [Basic Setup](/docs/BasicSetup.md).
 
 ## Usage
 
-[Basic Setup](/addons/maaacks_credits_scene/docs/BasicSetup.md) is done through the setup wizard at **Project > Tools > Run Maaack's Credits Scene Setup...**.  
+[Basic Setup](/docs/BasicSetup.md) is done through the setup wizard at **Project > Tools > Run Maaack's Credits Scene Setup...**.  
 
 As part of setup, example scenes are copied out of `/addons/` into a desired folder (project root by default). These can be edited to fit requirements.
 
 ### More Documentation
 
-[Updating Credits](/addons/maaacks_credits_scene/docs/UpdatingCredits.md)  
-[Automatic Updating](/addons/maaacks_credits_scene/docs/AutomaticUpdating.md)  
+[Updating Credits](/docs/UpdatingCredits.md)  
+[Automatic Updating](/docs/AutomaticUpdating.md)  
 
 ## Media
 
 ### Videos
 
 [![Quick Intro Video](https://img.youtube.com/vi/U9CB3vKINVw/hqdefault.jpg)](https://youtu.be/U9CB3vKINVw)  
-[More Videos](/addons/maaacks_credits_scene/docs/Videos.md)
+[More Videos](/docs/Videos.md)
 
 ### Screenshots
 
-![Credits Screen](/addons/maaacks_credits_scene/media/Screenshot-3-5.png)  
-[More Screenshots](/addons/maaacks_credits_scene/docs/Screenshots.md)  
+![Credits Screen](/media/Screenshot-3-5.png)  
+[More Screenshots](/docs/Screenshots.md)  
 
 ## Featured Games
 
 | Crumbling Castle | Dungeon Bodega Simulator | Lucky Break |  
 | :-------:| :-------: | :-------: |
-| ![Crumbling Castle](/addons/maaacks_credits_scene/media/thumbnail-game-crumbling-castle.png) | ![Dungeon Bodega Simulator](/addons/maaacks_credits_scene/media/thumbnail-game-dungeon-bodega-simulator.png) | ![Lucky Break](/addons/maaacks_credits_scene/media/thumbnail-game-lucky-break.png) |
-| [Play on itch.io](https://maaack.itch.io/crumbling-castle) |  [Find on Steam](https://store.steampowered.com/app/3458180/Dungeon_Bodega_Simulator/)  | [Play on Steam](https://store.steampowered.com/app/4155880/Lucky_Break/)  |
+| ![Crumbling Castle](/media/thumbnail-game-crumbling-castle.png) | ![Dungeon Bodega Simulator](/media/thumbnail-game-dungeon-bodega-simulator.png) | ![Lucky Break](/media/thumbnail-game-lucky-break.png) |
+| [Play on itch.io](https://maaack.itch.io/crumbling-castle) |  [Play on Steam](https://store.steampowered.com/app/3458180/Dungeon_Bodega_Simulator/)  | [Play on Steam](https://store.steampowered.com/app/4155880/Lucky_Break/)  |
 
-[All Shared Games](/addons/maaacks_credits_scene/docs/GamesMade.md)  
+[All Shared Games](/docs/GamesMade.md)  
 
 
 ## Community
